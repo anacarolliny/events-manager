@@ -1,85 +1,121 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Gerenciador de Eventos de Tecnologia
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto é uma API para gerenciar eventos de tecnologia, permitindo o cadastro, listagem, filtragem e detalhamento de eventos, bem como a associação de cupons de desconto a esses eventos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Funcionalidades
 
-## Description
+- **Cadastro de Eventos**: Permite o cadastro de eventos com informações como título, descrição, data, local, imagem e URL do evento.
+- **Listagem e Filtragem de Eventos**: Permite a listagem de eventos com paginação e filtros por título, data e local.
+- **Detalhamento de Eventos**: Permite a consulta detalhada de um evento específico, incluindo informações sobre cupons de desconto associados.
+- **Associação de Cupons**: Permite a associação de um ou mais cupons de desconto a um evento.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Estrutura do Projeto
 
-## Project setup
+A estrutura do projeto segue as boas práticas de Clean Code, SOLID e Clean Architecture, organizando o código de maneira modular e fácil de manter. Abaixo está a estrutura de pastas do projeto:
 
-```bash
-$ npm install
+```
+📂 src/
+├── 📂 configs/         # Arquivos de configuração do projeto
+├── 📂 database/        # Configuração e manipulação do banco de dados
+│   ├── 📂 repositories/  # Repositórios que encapsulam a lógica de acesso a dados
+│   │   ├── event.repository.ts
+│   │   ├── event.repository.interface.ts
+│   │   └── coupon.repository.ts
+│   └── 📂 entities/      # Definições das entidades do TypeORM
+├── 📂 modules/         # Módulos principais do projeto
+│   ├── 📂 events/      # Módulo de eventos
+│   │   ├── 📂 controllers/  # Controladores que lidam com as rotas HTTP
+│   │   ├── 📂 services/     # Serviços que contêm a lógica de negócios
+│   │   ├── 📂 interfaces/   # Interfaces compartilhadas e DTOs
+│   │   └── 📂 dtos/         # Objetos de Transferência de Dados usados para validação
+├── 📂 providers/       # Provedores para serviços externos ou bibliotecas
+└── 📂 shared/          # Componentes e utilitários compartilhados
+    ├── 📂 database/    # Componentes e utilitários compartilhados para banco de dados
+    ├── 📂 decorators/  # Decoradores personalizados usados em todo o projeto
+    ├── 📂 interfaces/  # Interfaces e tipos compartilhados
+    ├── 📂 interceptors/  # Interceptores personalizados usados para validação de requisições
+    └── 📂 utils/       # Funções utilitárias e módulos auxiliares compartilhados
 ```
 
-## Compile and run the project
+## Configuração do Ambiente de Desenvolvimento
 
-```bash
-# development
-$ npm run start
+### Pré-requisitos
 
-# watch mode
-$ npm run start:dev
+- Node.js (versão 20.16.0)
+- Docker (para configuração do banco de dados PostgreSQL)
+- NPM (para gerenciamento de pacotes)
 
-# production mode
-$ npm run start:prod
-```
+### Instalação
 
-## Run tests
+1. Clone o repositório:
 
-```bash
-# unit tests
-$ npm run test
+   ```bash
+   git clone https://github.com/seu-usuario/events-manager.git
+   cd events-manager
+   ```
 
-# e2e tests
-$ npm run test:e2e
+2. Instale as dependências:
 
-# test coverage
-$ npm run test:cov
-```
+   ```bash
+   npm install
+   ```
 
-## Resources
+3. Configure o ambiente:
 
-Check out a few resources that may come in handy when working with NestJS:
+   - Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+     ```
+     POSTGRES_USER=seu_usuario
+     POSTGRES_PASSWORD=sua_senha
+     POSTGRES_DB=events_manager
+     ```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+4. Configure o banco de dados com Docker:
+   - Execute o comando para iniciar o container do PostgreSQL:
+     ```bash
+     docker-compose up -d
+     ```
 
-## Support
+### Scripts Disponíveis
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **Iniciar o servidor de desenvolvimento:**
 
-## Stay in touch
+  ```bash
+  npm run start:dev
+  ```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Rodar testes:**
 
-## License
+  ```bash
+  npm test
+  ```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- **Rodar migrações do banco de dados:**
+
+  ```bash
+  npm run migration:run
+  ```
+
+- **Gerar uma nova versão com changelog:**
+  ```bash
+  npm run release
+  ```
+
+### Git Hooks e CI/CD
+
+O projeto utiliza Husky para configurar hooks Git e GitHub Actions para CI/CD:
+
+- **Pre-commit:** Validação de código com ESLint e Prettier.
+- **Pre-push:** Execução de testes automatizados.
+- **CI/CD:** O GitHub Actions está configurado para rodar testes e linting em cada push para o branch principal.
+
+### Versionamento Semântico
+
+O projeto utiliza versionamento semântico. A cada release, uma nova tag é criada e o changelog é atualizado automaticamente.
+
+### Contribuição
+
+1. Faça um fork do projeto.
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
+3. Commit suas mudanças (`git commit -m 'feat: adicionar nova feature'`).
+4. Faça o push para a branch (`git push origin feature/nova-feature`).
+5. Abra um Pull Request.
